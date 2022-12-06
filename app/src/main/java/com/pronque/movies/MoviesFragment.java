@@ -12,14 +12,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Cache;
-import com.android.volley.Network;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -28,24 +20,15 @@ import java.util.Objects;
  * A simple {@link Fragment} subclass.
  */
 public class MoviesFragment extends Fragment {
-    // RecyclerView pour afficher la liste des films
-    private RecyclerView rv_movies;
-
     public static FragmentManager fragmentManager;
     public static MoviesAdapter moviesAdapter;
-    public MovieManager movieManager;
-
     // Liste des films
     public static ArrayList<Movie> movies = new ArrayList<>();
+    public MovieManager movieManager;
     // Url de l'API
     String url = "https://api.themoviedb.org/3/movie/top_rated?api_key=934a8072ea76f19c1778d6f7c23d35a1&language=fr-FR&page=";
-
-    /**
-     * Constructeur par défaut
-     */
-    public MoviesFragment() {
-        // Required empty public constructor
-    }
+    // RecyclerView pour afficher la liste des films
+    private RecyclerView rv_movies;
 
     /**
      * Rafraichit la liste des films
@@ -56,6 +39,7 @@ public class MoviesFragment extends Fragment {
 
     /**
      * Ouvre le fragment de détail d'un film
+     *
      * @param movie film à afficher
      */
     public static void openMovieDetailsFragment(Movie movie) {
@@ -78,11 +62,6 @@ public class MoviesFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -90,37 +69,43 @@ public class MoviesFragment extends Fragment {
 
         MainActivity.isMain = true;
 
+        // Récupère la RecyclerView
         rv_movies = rootView.findViewById(R.id.rv_movies);
 
-        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager = requireActivity().getSupportFragmentManager();
         movieManager = new MovieManager();
 
+        // Récupère la liste des films
         movieManager.getMovies(getContext(), url);
 
+        // Crée un adapter pour la RecyclerView
         moviesAdapter = new MoviesAdapter(movies);
 
+        // Lie l'adapter à la RecyclerView
         rv_movies.setAdapter(moviesAdapter);
 
+        // Crée un layout manager pour la RecyclerView
         rv_movies.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // A chaque scroll on récupère les films suivants
         rv_movies.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                int nbrOfItem = Objects.requireNonNull(rv_movies.getAdapter()).getItemCount();
-                nbrOfItem = nbrOfItem - 80;
+                // Le nombre de films affichés
+                int itemsNumber = Objects.requireNonNull(rv_movies.getAdapter()).getItemCount();
+                itemsNumber -= 60;
 
-                // on récupère la index du dernier élément visible
+                // Récupère le dernier film affiché
                 MainActivity.index = ((LinearLayoutManager) Objects.requireNonNull(recyclerView.getLayoutManager())).findLastVisibleItemPosition();
 
-                // si le nombre d'éléments dans la liste est a la moitier on charge les éléments suivants
-                if (MainActivity.index > nbrOfItem) {
-                    // scroll en bas
+                // Si l'index est supérieur au nombre de films affichés on récupère les films suivants
+                if (MainActivity.index > itemsNumber) {
                     movieManager.getMovies(getContext(), url);
                 }
             }
         });
-        // scroll a l'index sauvegardé
+        // Scroll à l'index sauvegardé
         rv_movies.scrollToPosition(MainActivity.index);
 
         return rootView;

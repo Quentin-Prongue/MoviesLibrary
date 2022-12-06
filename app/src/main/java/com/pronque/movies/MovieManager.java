@@ -25,12 +25,23 @@ public class MovieManager {
     }
 
     /**
+     * Récupère le film avec l'id passé en paramètre
+     *
+     * @param index index du film
+     * @return le film
+     */
+    public Movie getMovie(int index) {
+        return MoviesFragment.movies.get(index);
+    }
+
+    /**
      * Récupère les films depuis l'API
      *
      * @param context contexte de l'application
      * @param url     url de l'API
      */
     public void getMovies(Context context, String url) {
+        // Complète l'url avec le numéro de la page
         url += MainActivity.pageNumber;
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -152,15 +163,5 @@ public class MovieManager {
                     }
                 }, error -> Log.d(TAG, "onErrorResponse: " + error));
         queue.add(stringRequest);
-    }
-
-    /**
-     * Récupère le film avec l'id passé en paramètre
-     *
-     * @param index index du film
-     * @return le film
-     */
-    public Movie getMovie(int index) {
-        return MoviesFragment.movies.get(index);
     }
 }

@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+        <!-- RecyclerView pour l'affichage des films -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movies"
             android:layout_width="match_parent"

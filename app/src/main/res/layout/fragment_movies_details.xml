@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Nom du film -->
         <TextView
             android:id="@+id/movie_name"
             android:layout_width="290dp"
@@ -25,6 +26,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.052" />
 
+        <!-- Année du film -->
         <TextView
             android:id="@+id/movie_year"
             android:layout_width="wrap_content"
@@ -35,6 +37,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_name" />
 
+        <!-- Bouton pour revenir en arrière -->
         <ImageButton
             android:id="@+id/button_back"
             android:layout_width="wrap_content"
@@ -47,6 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
 
+        <!-- Vue qui permet de scroll -->
         <ScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
@@ -66,6 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <!-- Image du film -->
                 <ImageView
                     android:id="@+id/film_image"
                     android:layout_width="wrap_content"
@@ -77,7 +82,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.171" />
 
-
+                <!-- Description du film -->
                 <TextView
                     android:id="@+id/movie_overview"
                     android:layout_width="match_parent"

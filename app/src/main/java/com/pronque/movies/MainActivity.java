@@ -22,13 +22,6 @@ public class MainActivity extends AppCompatActivity {
     // Le numéro de la page
     public static int pageNumber = 1;
 
-    /**
-     * Supprime tous les films de la liste
-     */
-    public static void removeAllFilms() {
-        moviesList.clear();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

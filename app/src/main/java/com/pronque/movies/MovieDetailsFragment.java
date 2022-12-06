@@ -73,9 +73,6 @@ public class MovieDetailsFragment extends Fragment {
 
         // Au clic sur le bouton de retour, on revient au fragment précédent
         button_back.setOnClickListener(v -> {
-            // Supprime tous les films
-            MainActivity.removeAllFilms();
-
             // Instancie le fragment MoviesFragment
             MoviesFragment moviesFragment = new MoviesFragment();
 
