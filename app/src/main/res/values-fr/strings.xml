@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BibliothequeFilms</string>
+    <string name="movie_name">Nom du film</string>
+    <string name="movie_year">Année du film</string>
+    <string name="movie_overview">Description du film</string>
+    <string name="movie_image">Image du film</string>
+</resources>
