@@ -1,1 +1,1 @@
-# Projet MoviesLibrary pour l'atelier Android
+# Projet de bibliothèque de films pour l'atelier Android
